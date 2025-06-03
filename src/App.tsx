@@ -1,16 +1,24 @@
-import { Button } from "./components/ui/button";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import HomeSCLayout from "@/layout/HomeSCLayout";
+import SelectCompany from "@/pages/SelectCompany";
 
 const App = () => {
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<HomeSCLayout />}>
+        <Route path="/" element={<SelectCompany />} />
+      </Route>,
+    ),
+  );
+
   return (
     <>
-      <div className="h-100vh w-100vw bg-amber-600 text-center text-2xl">
-        <h1 className="text-white">Hello World!</h1>
-      </div>
-      <div className="flex justify-center align-middle">
-        <Button className="bg-violet-600 font-semibold text-white">
-          Submit
-        </Button>
-      </div>
+      <RouterProvider router={router} />
     </>
   );
 };
