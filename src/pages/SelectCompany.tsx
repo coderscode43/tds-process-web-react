@@ -1,5 +1,16 @@
+import SCButton from "@/components/component/SCButton";
+
 const SelectCompany = () => {
-  return <div>SelectCompany</div>;
+  return (
+    <>
+      <SCButton
+        id="search"
+        btnName="Search"
+        btnAlt="Search Button"
+        imgSrc="/gificons/Search.gif"
+      />
+    </>
+  );
 };
 
 export default SelectCompany;
