@@ -5,7 +5,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import HomeSCLayout from "@/layout/HomeSCLayout";
-import SelectCompany from "@/pages/SelectCompany";
+import SelectCompany from "./pages/SelectCompany";
 
 const App = () => {
   const router = createBrowserRouter(
