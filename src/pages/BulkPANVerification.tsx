@@ -13,13 +13,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import TailwindModal from "@/components/component/SCAddModal";
 
-const SelectCompany = () => {
+const BulkPANVerification = () => {
   return (
     <div className="mt-8 mb-10 ml-16 flex">
       <div className="page-container space-y-5">
         <div>
           <h2 className="scroll-m-20 text-2xl font-bold tracking-tight first:mt-0">
-            TDS/TCS
+            Bulk PAN Verification
           </h2>
         </div>
         <div className="flex flex-col gap-2">
@@ -97,4 +97,4 @@ const SelectCompany = () => {
   );
 };
 
-export default SelectCompany;
+export default BulkPANVerification;

@@ -1,88 +1,90 @@
-import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import React from "react";
 
-interface MenuItem {
-  id: string;
-  label: string;
-  icon: string;
-  page: string;
+interface SCSidebarProps {
+  isOpen: boolean;
 }
 
-const menuItems: MenuItem[] = [
+interface SidebarItem {
+  label: string;
+  path: string;
+  iconClass: string;
+}
+
+const sidebarItems: SidebarItem[] = [
   {
-    id: "selectCompany",
-    label: "Home",
-    icon: "fas fa-id-card",
-    page: "selectCompany",
+    label: "TDS/TCS",
+    path: "/selectCompany",
+    iconClass: "fa-solid fa-indian-rupee-sign",
   },
   {
-    id: "gstVerification",
-    label: "GSTIN Verification",
-    icon: "fas fa-check-circle",
-    page: "validateGSTIN",
+    label: "Add Token Number",
+    path: "/addTokenNumber",
+    iconClass: "fa-brands fa-medrt",
   },
   {
-    id: "filingStatus",
-    label: "Filing Status",
-    icon: "fas fa-file-alt",
-    page: "filingStatus",
+    label: "Bulk Import Detector",
+    path: "/bulkImportDeductor",
+    iconClass: "fa-solid fa-cloud-arrow-down",
   },
   {
-    id: "utilities",
+    label: "15G/15H Status",
+    path: "/15GHStatus",
+    iconClass: "fa-solid fa-file-waveform",
+  },
+  {
+    label: "Process Challan",
+    path: "/processChallan",
+    iconClass: "fa-solid fa-ticket",
+  },
+  {
+    label: "Bulk PAN Verification",
+    path: "/bulkPanVerification",
+    iconClass: "fa-solid fa-square-check",
+  },
+  {
     label: "Utilities",
-    icon: "fas fa-share-alt",
-    page: "utilities",
+    path: "/utilities",
+    iconClass: "fa-solid fa-share-nodes",
   },
   {
-    id: "importMasterData",
-    label: "Import Master Data",
-    icon: "fas fa-cloud-upload-alt",
-    page: "importMasterData",
+    label: "Calculator",
+    path: "/calculator",
+    iconClass: "fa-solid fa-calculator",
   },
   {
-    id: "GSTProcess",
-    label: "Process Details",
-    icon: "far fa-file",
-    page: "GSTProcess",
+    label: "Process Detail",
+    path: "/tdsProcess",
+    iconClass: "fa-solid fa-file",
   },
-  { id: "logs", label: "Logs", icon: "fas fa-history", page: "logs" },
-  { id: "setting", label: "Setting", icon: "far fa-sun", page: "setting" },
+  { label: "Logs", path: "/logs", iconClass: "fa-solid fa-clock-rotate-left" },
+  { label: "Setting", path: "/setting", iconClass: "fa-solid fa-gear" },
 ];
 
-const SCSideBar: React.FC = () => {
-  const [activePage, setActivePage] = useState<string>("selectCompany");
-  const [hovered, setHovered] = useState<boolean>(false);
-
-  const handleMenuClick = (pageId: string) => {
-    setActivePage(pageId);
-    // Handle routing or logic here
-    console.log(`Navigating to ${pageId}`);
-  };
-
+const SCSideBar: React.FC<SCSidebarProps> = ({ isOpen }) => {
   return (
-    <div
-      className={`left-sidenav fixed top-5 left-0 z-[1000] h-[90%] overflow-hidden rounded-r-lg bg-[#edf2fa] transition-all duration-300 ${hovered ? "w-[240px] shadow-lg" : "w-16"}`}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+    <aside
+      aria-label="Sidebar Navigation"
+      className={`absolute top-16 z-10 transition-all duration-400 ease-in-out ${
+        isOpen ? "left-0" : "-left-48"
+      }`}
     >
-      <div className="mt-3 px-2 text-lg font-medium">
-        <ul className="left-sidenav-menu">
-          {menuItems.map((item) => (
-            <li
-              key={item.id}
-              className={`flex cursor-pointer items-center rounded-md p-3 transition-colors duration-200 ${
-                activePage === item.id ? "bg-blue-100" : "hover:bg-blue-50"
-              }`}
-              onClick={() => handleMenuClick(item.id)}
-            >
-              <div className="flex w-full items-center space-x-3">
-                {hovered && <span>{item.label}</span>}
-                <i className={`${item.icon} w-6 text-center text-xl`}></i>
-              </div>
+      <nav className="h-screen w-60 rounded-r-md border border-gray-200 bg-gray-50 shadow">
+        <ul className="mx-3 my-5 flex flex-col gap-5 overflow-hidden">
+          {sidebarItems.map(({ label, path, iconClass }) => (
+            <li key={path}>
+              <Link
+                to={path}
+                className="flex w-full items-center justify-between rounded-sm p-2 transition-colors hover:bg-gray-200"
+              >
+                <span>{label}</span>
+                <i className={iconClass} aria-hidden="true"></i>
+              </Link>
             </li>
           ))}
         </ul>
-      </div>
-    </div>
+      </nav>
+    </aside>
   );
 };
 
